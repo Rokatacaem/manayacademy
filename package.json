@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "build:prod": "prisma generate && next build",
+    "start": "node server.js",
     "lint": "eslint"
   },
   "dependencies": {
