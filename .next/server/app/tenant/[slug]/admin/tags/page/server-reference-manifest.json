@@ -3,7 +3,7 @@
     "004eab34b3722ccdb34bdc153ae48c8c96bfc525ab": {
       "workers": {
         "app/tenant/[slug]/admin/tags/page": {
-          "moduleId": 46590,
+          "moduleId": 90004,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
           "filename": "src/app/tenant/[slug]/admin/layout.tsx"
@@ -15,10 +15,40 @@
       "exportedName": "$$RSC_SERVER_ACTION_0",
       "filename": "src/app/tenant/[slug]/admin/layout.tsx"
     },
+    "40c35a10bfe5a01a4039b5821e35ece3d90b234ad4": {
+      "workers": {
+        "app/tenant/[slug]/admin/tags/page": {
+          "moduleId": 90004,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_1",
+          "filename": "src/app/tenant/[slug]/admin/tags/page.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/tags/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_1",
+      "filename": "src/app/tenant/[slug]/admin/tags/page.tsx"
+    },
+    "609a259bb3823e280e70195de626895b2771ec418c": {
+      "workers": {
+        "app/tenant/[slug]/admin/tags/page": {
+          "moduleId": 90004,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/tags/page.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/tags/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/tags/page.tsx"
+    },
     "601c7d9cab7300c2118446a4ae12bab3c76ad29a8d": {
       "workers": {
         "app/tenant/[slug]/admin/tags/page": {
-          "moduleId": 46590,
+          "moduleId": 90004,
           "async": false,
           "exportedName": "deleteTag",
           "filename": "src/actions/tags.ts"
@@ -33,7 +63,7 @@
     "60e60e0f124ce56c75378f2900f9897e13beb96286": {
       "workers": {
         "app/tenant/[slug]/admin/tags/page": {
-          "moduleId": 46590,
+          "moduleId": 90004,
           "async": false,
           "exportedName": "createTag",
           "filename": "src/actions/tags.ts"

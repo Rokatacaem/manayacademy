@@ -9,12 +9,19 @@ interface TestEmailPanelProps {
     defaultEmail?: string
 }
 
-const initialState = { success: '', error: '' }
+type ActionState = {
+    success?: string;
+    error?: string;
+};
+
+const initialState: ActionState = {};
 
 export default function TestEmailPanel({ tenantId, campaignId, defaultEmail = '' }: TestEmailPanelProps) {
     const boundAction = sendTestEmail.bind(null, tenantId, campaignId)
-    const [state, dispatch, isPending] = useActionState(
-        async (_: any, formData: FormData) => await boundAction(formData),
+    const [state, dispatch, isPending] = useActionState<ActionState, FormData>(
+        async (prevState: ActionState, formData: FormData) => {
+            return await boundAction(formData);
+        },
         initialState
     )
 

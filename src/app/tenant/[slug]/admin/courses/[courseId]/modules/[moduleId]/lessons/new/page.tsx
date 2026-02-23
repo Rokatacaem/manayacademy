@@ -24,7 +24,10 @@ export default async function NewLessonPage({ params }: { params: Promise<{ slug
         <div className="max-w-2xl mx-auto">
             <h1 className="text-2xl font-bold mb-6">Nueva Lección para: {moduleData.title}</h1>
 
-            <form action={createLessonWithIds} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
+            <form action={async (formData: FormData) => {
+                'use server';
+                await createLessonWithIds(formData);
+            }} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
                 <div>
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Título

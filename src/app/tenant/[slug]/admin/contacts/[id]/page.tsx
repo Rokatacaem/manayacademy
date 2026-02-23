@@ -27,13 +27,16 @@ export default async function EditContactPage({ params }: { params: Promise<{ sl
     const updateContactWithTenant = updateContact.bind(null, tenant.id, contact.id);
     const deleteContactWithTenant = deleteContact.bind(null, tenant.id, contact.id);
 
+    const onUpdate = async (formData: FormData) => { 'use server'; await updateContactWithTenant(formData); }
+    const onDelete = async () => { 'use server'; await deleteContactWithTenant(); }
+
     return (
         <div className="max-w-2xl mx-auto space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold">Editar Contacto</h1>
             </div>
 
-            <form action={updateContactWithTenant} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
+            <form action={onUpdate} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -111,7 +114,7 @@ export default async function EditContactPage({ params }: { params: Promise<{ sl
             </form>
 
             <div className="flex justify-end pt-4 border-t border-gray-200 dark:border-zinc-800">
-                <form action={deleteContactWithTenant}>
+                <form action={onDelete}>
                     <Button type="submit" variant="destructive">
                         Eliminar Contacto
                     </Button>

@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { parse } from 'csv-parse/sync'
 
-export async function importContacts(formData: FormData) {
+export async function importContacts(tenantId: string, formData: FormData) {
     const file = formData.get('file') as File
 
     if (!file) {
@@ -20,7 +20,7 @@ export async function importContacts(formData: FormData) {
             columns: true,
             skip_empty_lines: true,
             trim: true
-        })
+        }) as Record<string, string>[]
 
         // Process records
         // Expected columns: email, firstName, lastName, tags
@@ -39,14 +39,16 @@ export async function importContacts(formData: FormData) {
 
             try {
                 await prisma.contact.upsert({
-                    where: { email: record.email },
+                    where: {
+                        tenantId_email: { tenantId, email: record.email }
+                    },
                     update: {
                         firstName: record.firstName,
                         lastName: record.lastName,
                         tags: {
                             connectOrCreate: tagNames.map((name: string) => ({
-                                where: { name },
-                                create: { name }
+                                where: { tenantId_name: { tenantId, name } },
+                                create: { name, tenantId }
                             }))
                         }
                     },
@@ -55,10 +57,11 @@ export async function importContacts(formData: FormData) {
                         firstName: record.firstName,
                         lastName: record.lastName,
                         source: 'Import CSV',
+                        tenantId,
                         tags: {
                             connectOrCreate: tagNames.map((name: string) => ({
-                                where: { name },
-                                create: { name }
+                                where: { tenantId_name: { tenantId, name } },
+                                create: { name, tenantId }
                             }))
                         }
                     }

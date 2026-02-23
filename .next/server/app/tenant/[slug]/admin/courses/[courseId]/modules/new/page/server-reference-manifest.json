@@ -3,7 +3,7 @@
     "004eab34b3722ccdb34bdc153ae48c8c96bfc525ab": {
       "workers": {
         "app/tenant/[slug]/admin/courses/[courseId]/modules/new/page": {
-          "moduleId": 85591,
+          "moduleId": 8689,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
           "filename": "src/app/tenant/[slug]/admin/layout.tsx"
@@ -15,10 +15,25 @@
       "exportedName": "$$RSC_SERVER_ACTION_0",
       "filename": "src/app/tenant/[slug]/admin/layout.tsx"
     },
+    "608e1baed6929b72a9124a8e1faef61c3743df2d85": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/new/page": {
+          "moduleId": 8689,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/courses/[courseId]/modules/new/page.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/new/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/courses/[courseId]/modules/new/page.tsx"
+    },
     "70281f4906bb0911fb3dd4878f5e2014da328c1492": {
       "workers": {
         "app/tenant/[slug]/admin/courses/[courseId]/modules/new/page": {
-          "moduleId": 85591,
+          "moduleId": 8689,
           "async": false,
           "exportedName": "createModule",
           "filename": "src/actions/modules.ts"
@@ -33,7 +48,7 @@
     "7046ca9ed0d19d0cf0e10494ccb94f149e5345f0a6": {
       "workers": {
         "app/tenant/[slug]/admin/courses/[courseId]/modules/new/page": {
-          "moduleId": 85591,
+          "moduleId": 8689,
           "async": false,
           "exportedName": "deleteModule",
           "filename": "src/actions/modules.ts"
@@ -48,7 +63,7 @@
     "78e67356fe45f6f15a2214517bde5d1662c995ff8b": {
       "workers": {
         "app/tenant/[slug]/admin/courses/[courseId]/modules/new/page": {
-          "moduleId": 85591,
+          "moduleId": 8689,
           "async": false,
           "exportedName": "updateModule",
           "filename": "src/actions/modules.ts"

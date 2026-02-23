@@ -26,6 +26,10 @@ export default async function CampaignIdPage({ params }: { params: Promise<{ slu
     const deleteCampaignAction = deleteCampaign.bind(null, tenant.id, campaign.id);
     const sendCampaignAction = sendCampaign.bind(null, tenant.id, campaign.id);
 
+    const onUpdate = async (formData: FormData) => { 'use server'; await updateCampaignAction(formData); }
+    const onDelete = async (formData: FormData) => { 'use server'; await deleteCampaignAction(formData); }
+    const onSend = async (formData: FormData) => { 'use server'; await sendCampaignAction(formData); }
+
     const statusColor = isSent ? '#166534' : '#92400e'
     const statusBg = isSent ? '#f0fdf4' : '#fffbeb'
     const statusBorder = isSent ? '#bbf7d0' : '#fde68a'
@@ -51,7 +55,7 @@ export default async function CampaignIdPage({ params }: { params: Promise<{ slu
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '32px', alignItems: 'start' }}>
                 {/* Main Content */}
                 <div>
-                    <form action={updateCampaignAction}>
+                    <form action={onUpdate}>
                         <fieldset disabled={isSent} style={{ border: 'none', padding: 0, margin: 0 }}>
                             {/* Subject */}
                             <div style={{ background: 'white', padding: '30px', borderRadius: '20px', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', marginBottom: '24px' }}>
@@ -113,7 +117,7 @@ export default async function CampaignIdPage({ params }: { params: Promise<{ slu
                                 <p style={{ fontSize: '0.78rem', color: '#64748b', marginBottom: '16px' }}>
                                     ⚠️ Una vez enviada, <strong>no podrás editar</strong> esta campaña. Asegúrate de haberla probado antes.
                                 </p>
-                                <form action={sendCampaignAction}>
+                                <form action={onSend}>
                                     <label style={{ fontSize: '0.65rem', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '8px' }}>
                                         Destinatarios
                                     </label>
@@ -161,7 +165,7 @@ export default async function CampaignIdPage({ params }: { params: Promise<{ slu
                     )}
 
                     {/* Delete */}
-                    <form action={deleteCampaignAction}>
+                    <form action={onDelete}>
                         <button type="submit" style={{ width: '100%', padding: '12px', background: 'none', border: '1px solid #fecaca', color: '#ef4444', borderRadius: '12px', cursor: 'pointer', fontWeight: '600', fontSize: '0.75rem' }}>
                             🗑️ Eliminar campaña
                         </button>

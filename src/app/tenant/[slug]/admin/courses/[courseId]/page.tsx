@@ -45,7 +45,10 @@ export default async function CourseIdPage({ params }: { params: { courseId: str
                 <div className="md:col-span-1 space-y-6">
                     <div className="bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
                         <h2 className="text-lg font-bold mb-4">Detalles del Curso</h2>
-                        <form action={updateCourse.bind(null, course.id)} className="space-y-4">
+                        <form action={async (formData: FormData) => {
+                            'use server';
+                            await updateCourse(course.tenantId, course.id, formData);
+                        }} className="space-y-4">
                             <div>
                                 <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
                                 <input type="text" name="title" defaultValue={course.title} className="mt-1 block w-full rounded-md border-gray-300 dark:border-zinc-700 shadow-sm p-2 bg-transparent border" />
@@ -79,7 +82,10 @@ export default async function CourseIdPage({ params }: { params: { courseId: str
 
                     <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg border border-red-200 dark:border-red-900">
                         <h3 className="text-sm font-bold text-red-800 dark:text-red-300 mb-2">Zona de Peligro</h3>
-                        <form action={deleteCourse.bind(null, course.id)}>
+                        <form action={async () => {
+                            'use server';
+                            await deleteCourse(course.tenantId, course.id);
+                        }}>
                             <Button type="submit" variant="destructive" className="w-full">Eliminar Curso</Button>
                         </form>
                     </div>

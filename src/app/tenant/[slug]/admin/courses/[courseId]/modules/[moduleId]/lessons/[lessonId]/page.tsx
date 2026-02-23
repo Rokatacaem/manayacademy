@@ -27,7 +27,10 @@ export default async function EditLessonPage({ params }: { params: Promise<{ slu
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="md:col-span-2 space-y-6">
-                    <form action={updateLessonAction} className="bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800 space-y-4">
+                    <form action={async (formData: FormData) => {
+                        'use server';
+                        await updateLessonAction(formData);
+                    }} className="bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800 space-y-4">
                         <div>
                             <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Título
@@ -87,7 +90,10 @@ export default async function EditLessonPage({ params }: { params: Promise<{ slu
                 <div className="md:col-span-1 space-y-6">
                     <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg border border-red-200 dark:border-red-900">
                         <h3 className="text-sm font-bold text-red-800 dark:text-red-300 mb-2">Zona de Peligro</h3>
-                        <form action={deleteLessonAction}>
+                        <form action={async () => {
+                            'use server';
+                            await deleteLessonAction();
+                        }}>
                             <Button type="submit" variant="destructive" className="w-full">Eliminar Lección</Button>
                         </form>
                     </div>

@@ -3,7 +3,7 @@
     "004eab34b3722ccdb34bdc153ae48c8c96bfc525ab": {
       "workers": {
         "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page": {
-          "moduleId": 19240,
+          "moduleId": 91618,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
           "filename": "src/app/tenant/[slug]/admin/layout.tsx"
@@ -15,10 +15,40 @@
       "exportedName": "$$RSC_SERVER_ACTION_0",
       "filename": "src/app/tenant/[slug]/admin/layout.tsx"
     },
+    "400a4cb32327c3bb68ec64820695244f0656730f2d": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page": {
+          "moduleId": 91618,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_1",
+          "filename": "src/app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_1",
+      "filename": "src/app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page.tsx"
+    },
+    "600114919ff16249e16f8dcc4c7b7843ccd429e142": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page": {
+          "moduleId": 91618,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page.tsx"
+    },
     "70281f4906bb0911fb3dd4878f5e2014da328c1492": {
       "workers": {
         "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page": {
-          "moduleId": 19240,
+          "moduleId": 91618,
           "async": false,
           "exportedName": "createModule",
           "filename": "src/actions/modules.ts"
@@ -33,7 +63,7 @@
     "7046ca9ed0d19d0cf0e10494ccb94f149e5345f0a6": {
       "workers": {
         "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page": {
-          "moduleId": 19240,
+          "moduleId": 91618,
           "async": false,
           "exportedName": "deleteModule",
           "filename": "src/actions/modules.ts"
@@ -48,7 +78,7 @@
     "78e67356fe45f6f15a2214517bde5d1662c995ff8b": {
       "workers": {
         "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/edit/page": {
-          "moduleId": 19240,
+          "moduleId": 91618,
           "async": false,
           "exportedName": "updateModule",
           "filename": "src/actions/modules.ts"

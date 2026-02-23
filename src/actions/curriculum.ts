@@ -11,6 +11,9 @@ export async function createModule(courseId: string, formData: FormData) {
 
     if (!title) return { error: 'Title required' }
 
+    const course = await prisma.course.findUnique({ where: { id: courseId }, select: { tenantId: true } })
+    if (!course) return { error: 'Course not found' }
+
     // Get max order
     const lastModule = await prisma.module.findFirst({
         where: { courseId },
@@ -22,7 +25,8 @@ export async function createModule(courseId: string, formData: FormData) {
         data: {
             title,
             courseId,
-            order: newOrder
+            order: newOrder,
+            tenantId: course.tenantId
         }
     })
 
@@ -38,6 +42,9 @@ export async function createLesson(courseId: string, moduleId: string, formData:
     const videoUrl = formData.get('videoUrl') as string
     const content = formData.get('content') as string
 
+    const parentModule = await prisma.module.findUnique({ where: { id: moduleId }, select: { tenantId: true } })
+    if (!parentModule) return { error: 'Module not found' }
+
     // Get max order in module
     const lastLesson = await prisma.lesson.findFirst({
         where: { moduleId },
@@ -52,7 +59,8 @@ export async function createLesson(courseId: string, moduleId: string, formData:
             videoUrl,
             content,
             moduleId,
-            order: newOrder
+            order: newOrder,
+            tenantId: parentModule.tenantId
         }
     })
 

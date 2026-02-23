@@ -3,7 +3,7 @@
     "004eab34b3722ccdb34bdc153ae48c8c96bfc525ab": {
       "workers": {
         "app/tenant/[slug]/admin/contacts/import/page": {
-          "moduleId": 32410,
+          "moduleId": 20955,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
           "filename": "src/app/tenant/[slug]/admin/layout.tsx"
@@ -15,10 +15,25 @@
       "exportedName": "$$RSC_SERVER_ACTION_0",
       "filename": "src/app/tenant/[slug]/admin/layout.tsx"
     },
-    "40ae18388756af0356d29da20b851b6e00135b382c": {
+    "60c99619ba689f3c7448d305ac1b3e2bbb9a1d99bc": {
       "workers": {
         "app/tenant/[slug]/admin/contacts/import/page": {
-          "moduleId": 32410,
+          "moduleId": 20955,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/contacts/import/page.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/contacts/import/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/contacts/import/page.tsx"
+    },
+    "60ae18388756af0356d29da20b851b6e00135b382c": {
+      "workers": {
+        "app/tenant/[slug]/admin/contacts/import/page": {
+          "moduleId": 20955,
           "async": false,
           "exportedName": "importContacts",
           "filename": "src/actions/import.ts"

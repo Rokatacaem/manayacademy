@@ -8,7 +8,6 @@ import authConfig from "./auth.config"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     // NO adapter: with JWT strategy + Credentials, adapter is not needed and causes conflicts
-    secret: process.env.AUTH_SECRET ?? "manay-academy-secret-2026-local",
     session: { strategy: "jwt" },
     ...authConfig,
     providers: [

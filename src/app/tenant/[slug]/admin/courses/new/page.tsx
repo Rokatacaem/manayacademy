@@ -19,7 +19,10 @@ export default async function NewCoursePage({ params }: NewCoursePageProps) {
         <div className="max-w-2xl mx-auto">
             <h1 className="text-2xl font-bold mb-6">Nuevo Curso</h1>
 
-            <form action={createCourseWithTenant} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
+            <form action={async (formData: FormData) => {
+                'use server';
+                await createCourseWithTenant(formData);
+            }} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
                 <div>
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Título del Curso

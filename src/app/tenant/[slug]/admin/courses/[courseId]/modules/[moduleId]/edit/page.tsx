@@ -25,7 +25,10 @@ export default async function EditModulePage({ params }: { params: Promise<{ slu
         <div className="max-w-xl mx-auto space-y-8">
             <h1 className="text-2xl font-bold">Editar Módulo: {moduleData.title}</h1>
 
-            <form action={updateModuleAction} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
+            <form action={async (formData: FormData) => {
+                'use server';
+                await updateModuleAction(formData);
+            }} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
                 <div>
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Título del Módulo
@@ -48,7 +51,10 @@ export default async function EditModulePage({ params }: { params: Promise<{ slu
             <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg border border-red-200 dark:border-red-900">
                 <h3 className="text-sm font-bold text-red-800 dark:text-red-300 mb-2">Zona de Peligro</h3>
                 <p className="text-xs text-red-600 dark:text-red-400 mb-4">Eliminar este módulo borrará todas sus lecciones asociadas.</p>
-                <form action={deleteModuleAction}>
+                <form action={async () => {
+                    'use server';
+                    await deleteModuleAction();
+                }}>
                     <Button type="submit" variant="destructive" className="w-full">Eliminar Módulo</Button>
                 </form>
             </div>

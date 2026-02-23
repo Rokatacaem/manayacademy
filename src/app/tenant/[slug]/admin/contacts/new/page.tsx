@@ -16,7 +16,10 @@ export default async function NewContactPage({ params }: { params: Promise<{ slu
         <div className="max-w-2xl mx-auto">
             <h1 className="text-2xl font-bold mb-6">Nuevo Contacto</h1>
 
-            <form action={createContactWithTenant} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
+            <form action={async (formData: FormData) => {
+                'use server';
+                await createContactWithTenant(formData);
+            }} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">

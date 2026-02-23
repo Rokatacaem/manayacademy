@@ -27,7 +27,10 @@ export default async function TagsPage({ params }: { params: Promise<{ slug: str
                 <div className="md:col-span-1">
                     <div className="bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800 sticky top-6">
                         <h2 className="text-lg font-medium mb-4">Nueva Etiqueta</h2>
-                        <form action={createTagWithTenant} className="space-y-4">
+                        <form action={async (formData: FormData) => {
+                            'use server';
+                            await createTagWithTenant(formData);
+                        }} className="space-y-4">
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Nombre
@@ -75,7 +78,10 @@ export default async function TagsPage({ params }: { params: Promise<{ slug: str
                                             {tag._count.contacts}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <form action={deleteTag.bind(null, tenant.id, tag.id)}>
+                                            <form action={async () => {
+                                                'use server';
+                                                await deleteTagWithTenant(tag.id);
+                                            }}>
                                                 <button type="submit" className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
                                                     Eliminar
                                                 </button>

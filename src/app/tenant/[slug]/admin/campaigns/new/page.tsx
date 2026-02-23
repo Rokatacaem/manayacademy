@@ -12,6 +12,8 @@ export default async function NewCampaignPage({ params }: { params: Promise<{ sl
 
     const createCampaignWithTenant = createCampaign.bind(null, tenant.id);
 
+    const onAction = async (formData: FormData) => { 'use server'; await createCampaignWithTenant(formData); }
+
     return (
         <div style={{ maxWidth: '900px' }}>
             <div style={{ marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
@@ -28,7 +30,7 @@ export default async function NewCampaignPage({ params }: { params: Promise<{ sl
                 </Link>
             </div>
 
-            <form action={createCampaignWithTenant}>
+            <form action={onAction}>
                 {/* Subject */}
                 <div style={{ background: 'white', padding: '30px', borderRadius: '20px', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', marginBottom: '24px' }}>
                     <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '12px' }}>

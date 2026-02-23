@@ -86,7 +86,7 @@ export default async function CoursesPage({ params }: CoursesPageProps) {
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                    {Number(course.price) > 0 ? `$${course.price}` : 'Gratis'}
+                                    {Number(course.price) > 0 ? `$${Number(course.price)}` : 'Gratis'}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                     {course._count.modules} Módulos

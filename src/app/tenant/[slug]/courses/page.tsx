@@ -57,7 +57,7 @@ export default async function CoursesIndexPage({ params }: { params: Promise<{ s
 
                                 <div className="flex justify-between items-center text-sm font-medium pt-4 border-t border-gray-100 dark:border-zinc-800">
                                     <span className="text-gray-900 dark:text-white">
-                                        {course.price > 0 ? `$${course.price}` : 'Gratis'}
+                                        {Number(course.price) > 0 ? `$${Number(course.price)}` : 'Gratis'}
                                     </span>
                                     <span className="text-indigo-600 dark:text-indigo-400">
                                         {course._count.modules} Módulos

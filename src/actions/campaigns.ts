@@ -98,7 +98,7 @@ export async function updateCampaign(tenantId: string, id: string, formData: For
     redirect('/admin/campaigns')
 }
 
-export async function deleteCampaign(tenantId: string, id: string) {
+export async function deleteCampaign(tenantId: string, id: string, formData?: FormData) {
     if (!id) return
 
     try {

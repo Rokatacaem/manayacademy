@@ -3,7 +3,7 @@
     "004eab34b3722ccdb34bdc153ae48c8c96bfc525ab": {
       "workers": {
         "app/tenant/[slug]/admin/campaigns/new/page": {
-          "moduleId": 79619,
+          "moduleId": 50453,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
           "filename": "src/app/tenant/[slug]/admin/layout.tsx"
@@ -15,25 +15,25 @@
       "exportedName": "$$RSC_SERVER_ACTION_0",
       "filename": "src/app/tenant/[slug]/admin/layout.tsx"
     },
-    "601408ee420927c632a36e834d4582ccea0b0b4f2e": {
+    "6073e433282ea21a3593f81dd2f1e27310aa80351d": {
       "workers": {
         "app/tenant/[slug]/admin/campaigns/new/page": {
-          "moduleId": 79619,
+          "moduleId": 50453,
           "async": false,
-          "exportedName": "deleteCampaign",
-          "filename": "src/actions/campaigns.ts"
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/campaigns/new/page.tsx"
         }
       },
       "layer": {
         "app/tenant/[slug]/admin/campaigns/new/page": "rsc"
       },
-      "exportedName": "deleteCampaign",
-      "filename": "src/actions/campaigns.ts"
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/campaigns/new/page.tsx"
     },
     "60b65e72b3e35b33840f299682e69ec9d754c4da2a": {
       "workers": {
         "app/tenant/[slug]/admin/campaigns/new/page": {
-          "moduleId": 79619,
+          "moduleId": 50453,
           "async": false,
           "exportedName": "createCampaign",
           "filename": "src/actions/campaigns.ts"
@@ -45,10 +45,25 @@
       "exportedName": "createCampaign",
       "filename": "src/actions/campaigns.ts"
     },
+    "701408ee420927c632a36e834d4582ccea0b0b4f2e": {
+      "workers": {
+        "app/tenant/[slug]/admin/campaigns/new/page": {
+          "moduleId": 50453,
+          "async": false,
+          "exportedName": "deleteCampaign",
+          "filename": "src/actions/campaigns.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/campaigns/new/page": "rsc"
+      },
+      "exportedName": "deleteCampaign",
+      "filename": "src/actions/campaigns.ts"
+    },
     "709c08b87bbb42dbecee8b10a6cfb1bab4369bee79": {
       "workers": {
         "app/tenant/[slug]/admin/campaigns/new/page": {
-          "moduleId": 79619,
+          "moduleId": 50453,
           "async": false,
           "exportedName": "sendCampaign",
           "filename": "src/actions/campaigns.ts"
@@ -63,7 +78,7 @@
     "70c6a5394d4e2aaae04d1f4ae2e9256dc917c008d2": {
       "workers": {
         "app/tenant/[slug]/admin/campaigns/new/page": {
-          "moduleId": 79619,
+          "moduleId": 50453,
           "async": false,
           "exportedName": "sendTestEmail",
           "filename": "src/actions/campaigns.ts"
@@ -78,7 +93,7 @@
     "70d18c92ed0450fa61798ee749bae403adc72a5422": {
       "workers": {
         "app/tenant/[slug]/admin/campaigns/new/page": {
-          "moduleId": 79619,
+          "moduleId": 50453,
           "async": false,
           "exportedName": "updateCampaign",
           "filename": "src/actions/campaigns.ts"

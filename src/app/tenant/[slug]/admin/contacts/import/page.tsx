@@ -1,7 +1,16 @@
 import { Button } from "@/components/ui/Button"
 import { importContacts } from "@/actions/import"
+import { prisma } from "@/lib/prisma"
+import { notFound } from "next/navigation"
 
-export default function ImportContactsPage() {
+export default async function ImportContactsPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+
+    const tenant = await prisma.tenant.findUnique({ where: { slug } });
+    if (!tenant) notFound();
+
+    const importContactsWithTenant = importContacts.bind(null, tenant.id);
+
     return (
         <div className="max-w-2xl mx-auto space-y-6">
             <h1 className="text-2xl font-bold">Importar Contactos (CSV)</h1>
@@ -19,7 +28,10 @@ export default function ImportContactsPage() {
                 </p>
             </div>
 
-            <form action={importContacts} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
+            <form action={async (formData: FormData) => {
+                'use server';
+                await importContactsWithTenant(formData);
+            }} className="space-y-6 bg-white dark:bg-zinc-950 p-6 rounded-lg shadow border border-gray-200 dark:border-zinc-800">
                 <div>
                     <label htmlFor="file" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Archivo CSV
