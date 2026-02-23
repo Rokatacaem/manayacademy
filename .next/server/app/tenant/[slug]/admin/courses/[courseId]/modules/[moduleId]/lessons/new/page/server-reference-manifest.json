@@ -1,0 +1,65 @@
+{
+  "node": {
+    "004eab34b3722ccdb34bdc153ae48c8c96bfc525ab": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/lessons/new/page": {
+          "moduleId": 91238,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/lessons/new/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+    },
+    "70bab27e667a2a26e8f7c191d43e563faf5bd79c44": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/lessons/new/page": {
+          "moduleId": 91238,
+          "async": false,
+          "exportedName": "deleteLesson",
+          "filename": "src/actions/lessons.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/lessons/new/page": "rsc"
+      },
+      "exportedName": "deleteLesson",
+      "filename": "src/actions/lessons.ts"
+    },
+    "78fbd6c6427b76f39c03d6f5b06f73afc53afa017d": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/lessons/new/page": {
+          "moduleId": 91238,
+          "async": false,
+          "exportedName": "createLesson",
+          "filename": "src/actions/lessons.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/lessons/new/page": "rsc"
+      },
+      "exportedName": "createLesson",
+      "filename": "src/actions/lessons.ts"
+    },
+    "7c9e36c959a1e5098b6f32a5cbd0778c0f00e3555a": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/lessons/new/page": {
+          "moduleId": 91238,
+          "async": false,
+          "exportedName": "updateLesson",
+          "filename": "src/actions/lessons.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/[courseId]/modules/[moduleId]/lessons/new/page": "rsc"
+      },
+      "exportedName": "updateLesson",
+      "filename": "src/actions/lessons.ts"
+    }
+  },
+  "edge": {}
+}

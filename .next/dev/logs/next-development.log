@@ -1,0 +1,4 @@
+[00:00:02.335] Server  LOG     ✓ Ready in 1720ms
+[00:00:02.673] Server  LOG     Proxy LOADED
+[00:00:04.541] Server  LOG     Initializing Prisma Client. DB URL: "file:./dev.db"
+[00:00:05.190] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

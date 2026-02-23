@@ -1,0 +1,65 @@
+{
+  "node": {
+    "004eab34b3722ccdb34bdc153ae48c8c96bfc525ab": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/new/page": {
+          "moduleId": 62861,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/new/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+    },
+    "604a78745d54d1b207f8b030ab0b2fc6ed99b280b8": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/new/page": {
+          "moduleId": 62861,
+          "async": false,
+          "exportedName": "createCourse",
+          "filename": "src/actions/courses.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/new/page": "rsc"
+      },
+      "exportedName": "createCourse",
+      "filename": "src/actions/courses.ts"
+    },
+    "60fec3e3c3a44a5cf64a9bc7d297c0152bb03b3a9d": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/new/page": {
+          "moduleId": 62861,
+          "async": false,
+          "exportedName": "deleteCourse",
+          "filename": "src/actions/courses.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/new/page": "rsc"
+      },
+      "exportedName": "deleteCourse",
+      "filename": "src/actions/courses.ts"
+    },
+    "70a5678532715eb2e91f2b683a298da3fa6c4e9e80": {
+      "workers": {
+        "app/tenant/[slug]/admin/courses/new/page": {
+          "moduleId": 62861,
+          "async": false,
+          "exportedName": "updateCourse",
+          "filename": "src/actions/courses.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/courses/new/page": "rsc"
+      },
+      "exportedName": "updateCourse",
+      "filename": "src/actions/courses.ts"
+    }
+  },
+  "edge": {}
+}

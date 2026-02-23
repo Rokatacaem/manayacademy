@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/rokat/OneDrive/Proyectos/ManayAcademy/.next-internal/server/app/tenant/%5Bslug%5D/admin/contacts/page/actions.js%20%28server%20actions%20loader%29"],"sourcesContent":["export {$$RSC_SERVER_ACTION_0 as '00d2413c7b032011cc039227e801de69e758c1a19d'} from 'ACTIONS_MODULE0'\n"],"names":[],"mappings":";AAAA"}}]
+}

@@ -1,0 +1,3 @@
+{
+  "/tenant/[slug]/admin/courses/[courseId]/modules/new/page": "app/tenant/[slug]/admin/courses/[courseId]/modules/new/page.js"
+}

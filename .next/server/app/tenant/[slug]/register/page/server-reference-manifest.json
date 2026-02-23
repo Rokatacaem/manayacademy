@@ -1,0 +1,20 @@
+{
+  "node": {
+    "60bff822a95d13528c1fce4915e72d8a5fe54230ab": {
+      "workers": {
+        "app/tenant/[slug]/register/page": {
+          "moduleId": 44677,
+          "async": false,
+          "exportedName": "register",
+          "filename": "src/actions/auth.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/register/page": "action-browser"
+      },
+      "exportedName": "register",
+      "filename": "src/actions/auth.ts"
+    }
+  },
+  "edge": {}
+}

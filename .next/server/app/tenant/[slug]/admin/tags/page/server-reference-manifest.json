@@ -1,0 +1,50 @@
+{
+  "node": {
+    "004eab34b3722ccdb34bdc153ae48c8c96bfc525ab": {
+      "workers": {
+        "app/tenant/[slug]/admin/tags/page": {
+          "moduleId": 46590,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/tags/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+    },
+    "601c7d9cab7300c2118446a4ae12bab3c76ad29a8d": {
+      "workers": {
+        "app/tenant/[slug]/admin/tags/page": {
+          "moduleId": 46590,
+          "async": false,
+          "exportedName": "deleteTag",
+          "filename": "src/actions/tags.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/tags/page": "rsc"
+      },
+      "exportedName": "deleteTag",
+      "filename": "src/actions/tags.ts"
+    },
+    "60e60e0f124ce56c75378f2900f9897e13beb96286": {
+      "workers": {
+        "app/tenant/[slug]/admin/tags/page": {
+          "moduleId": 46590,
+          "async": false,
+          "exportedName": "createTag",
+          "filename": "src/actions/tags.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/tags/page": "rsc"
+      },
+      "exportedName": "createTag",
+      "filename": "src/actions/tags.ts"
+    }
+  },
+  "edge": {}
+}

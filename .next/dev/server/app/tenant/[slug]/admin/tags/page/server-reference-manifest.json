@@ -1,0 +1,50 @@
+{
+  "node": {
+    "00d2413c7b032011cc039227e801de69e758c1a19d": {
+      "workers": {
+        "app/tenant/[slug]/admin/tags/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/tags/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/tags.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/tags/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+    },
+    "603fdd9831f65d2fdcfcfe3db48cdd207587d7b891": {
+      "workers": {
+        "app/tenant/[slug]/admin/tags/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/tags/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/tags.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "deleteTag",
+          "filename": "src/actions/tags.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/tags/page": "rsc"
+      },
+      "exportedName": "deleteTag",
+      "filename": "src/actions/tags.ts"
+    },
+    "609fec0bbf176a2b4b139e41f1de51f31c318de8c9": {
+      "workers": {
+        "app/tenant/[slug]/admin/tags/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/tags/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/tags.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "createTag",
+          "filename": "src/actions/tags.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/tags/page": "rsc"
+      },
+      "exportedName": "createTag",
+      "filename": "src/actions/tags.ts"
+    }
+  },
+  "edge": {}
+}

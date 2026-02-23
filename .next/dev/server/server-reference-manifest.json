@@ -1,0 +1,96 @@
+{
+  "node": {
+    "00d2413c7b032011cc039227e801de69e758c1a19d": {
+      "workers": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/campaigns/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/campaigns.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/tenant/[slug]/admin/layout.tsx"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": "rsc"
+      },
+      "filename": "src/app/tenant/[slug]/admin/layout.tsx",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    },
+    "607b7ab258dd957502b50cdb4a7e9b1b5d4b8d99eb": {
+      "workers": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/campaigns/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/campaigns.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "deleteCampaign",
+          "filename": "src/actions/campaigns.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": "rsc"
+      },
+      "filename": "src/actions/campaigns.ts",
+      "exportedName": "deleteCampaign"
+    },
+    "60a9f1d484accdc838b05a44f2af278508f05b7439": {
+      "workers": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/campaigns/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/campaigns.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "createCampaign",
+          "filename": "src/actions/campaigns.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": "rsc"
+      },
+      "filename": "src/actions/campaigns.ts",
+      "exportedName": "createCampaign"
+    },
+    "700732c6797a0046cebc0c4b7987c4a65dc9c48a7e": {
+      "workers": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/campaigns/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/campaigns.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "updateCampaign",
+          "filename": "src/actions/campaigns.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": "rsc"
+      },
+      "filename": "src/actions/campaigns.ts",
+      "exportedName": "updateCampaign"
+    },
+    "70726a4c9135b4c0f66f92f7a2eea9aa886c1706bb": {
+      "workers": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/campaigns/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/campaigns.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "sendTestEmail",
+          "filename": "src/actions/campaigns.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": "action-browser"
+      },
+      "filename": "src/actions/campaigns.ts",
+      "exportedName": "sendTestEmail"
+    },
+    "7074171b872d72ab94603722085fd5398efe7218f6": {
+      "workers": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tenant/[slug]/admin/campaigns/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/tenant/[slug]/admin/layout.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/campaigns.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "sendCampaign",
+          "filename": "src/actions/campaigns.ts"
+        }
+      },
+      "layer": {
+        "app/tenant/[slug]/admin/campaigns/[id]/page": "rsc"
+      },
+      "filename": "src/actions/campaigns.ts",
+      "exportedName": "sendCampaign"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "41N4HY76r0gKIFFqJiOifG9N/xbr683q4FUyXe5zhjI="
+}

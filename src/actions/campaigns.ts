@@ -221,11 +221,11 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
         data: {
             status: 'SENT',
             sentAt: new Date(),
-            stats: {
+            stats: JSON.stringify({
                 sent: sentCount,
                 errors: errorCount,
                 total: contacts.length
-            }
+            })
         }
     })
 

@@ -13,8 +13,8 @@
 # testing
 /coverage
 
-# next.js
-/.next/
+# next.js build output - committed for cPanel deployment (server has insufficient RAM to build)
+# /.next/
 /out/
 
 # production

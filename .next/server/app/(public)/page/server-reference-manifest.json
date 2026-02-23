@@ -1,0 +1,20 @@
+{
+  "node": {
+    "402aa9aa5b1ca2439b0f58e3fd9240074f2f7baae7": {
+      "workers": {
+        "app/(public)/page": {
+          "moduleId": 91576,
+          "async": false,
+          "exportedName": "registerPublicLead",
+          "filename": "src/actions/contacts.ts"
+        }
+      },
+      "layer": {
+        "app/(public)/page": "action-browser"
+      },
+      "exportedName": "registerPublicLead",
+      "filename": "src/actions/contacts.ts"
+    }
+  },
+  "edge": {}
+}

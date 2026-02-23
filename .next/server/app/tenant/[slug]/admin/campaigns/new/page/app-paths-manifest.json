@@ -1,0 +1,3 @@
+{
+  "/tenant/[slug]/admin/campaigns/new/page": "app/tenant/[slug]/admin/campaigns/new/page.js"
+}
