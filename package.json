@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "build:prod": "prisma generate && next build",
     "start": "node server.js",
     "lint": "eslint",
-    "db:push": "prisma db push",
-    "db:seed": "prisma db seed"
+    "db:push": "./node_modules/.bin/prisma db push",
+    "db:seed": "./node_modules/.bin/prisma db seed"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",

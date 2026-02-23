@@ -29,8 +29,31 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploy on Vercel (Producción)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Este proyecto está configurado para desplegarse en **Vercel** usando **Vercel Postgres** (PostgreSQL).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Configuración de Base de Datos
+
+1. Crea un proyecto en el Dashboard de Vercel.
+2. En la pestaña `Storage`, crea una instancia de **Vercel Postgres**.
+3. Asegúrate de que las variables de entorno `POSTGRES_PRISMA_URL` y `POSTGRES_URL_NON_POOLING` estén vinculadas al proyecto.
+
+### Configuración DNS (Importante)
+
+Para mantener los servicios de correo en Wirenet Chile:
+
+1. **NO cambies los Nameservers**.
+2. Registro A: `@` -> `76.76.21.21`
+3. Registro CNAME: `www` -> `cname.vercel-dns.com`
+4. Registro CNAME: `*` -> `cname.vercel-dns.com` (para multi-tenant)
+
+### Comandos de Producción
+
+```bash
+# Sincronizar esquema con PostgreSQL
+npx prisma db push
+
+# Poblar base de datos inicial
+npm run db:seed
+```

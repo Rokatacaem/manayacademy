@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import path from 'path'
 dotenv.config({ path: path.join(process.cwd(), '.env') })
 dotenv.config({ path: path.join(process.cwd(), '.env.local') })
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '../src/generated/prisma-client'
 import { hash } from 'bcryptjs'
 const prisma = new PrismaClient()
 
