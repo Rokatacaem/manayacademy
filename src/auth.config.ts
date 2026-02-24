@@ -21,7 +21,8 @@ export default {
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isOnAdmin = nextUrl.pathname.startsWith('/admin');
+            const path = nextUrl.pathname;
+            const isOnAdmin = path === '/admin' || path.startsWith('/admin/') || path.includes('/admin/') || path.endsWith('/admin');
             const userRole = (auth?.user as any)?.role;
 
             if (isOnAdmin) {
