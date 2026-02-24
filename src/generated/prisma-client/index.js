@@ -200,6 +200,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -247,14 +252,6 @@ const config = {
       },
       {
         "fromEnvVar": null,
-        "value": "rhel-openssl-1.0.x"
-      },
-      {
-        "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x"
-      },
-      {
-        "fromEnvVar": null,
         "value": "linux-musl-openssl-3.0.x"
       }
     ],
@@ -263,7 +260,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -272,18 +269,17 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "mysql",
-  "postinstall": false,
+  "activeProvider": "postgresql",
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DATABASE_URL",
+        "fromEnvVar": "POSTGRES_PRISMA_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma-client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\", \"rhel-openssl-1.0.x\", \"debian-openssl-3.0.x\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Tenant {\n  id   String @id @default(cuid())\n  name String\n  slug String @unique\n  type String @default(\"BUSINESS\") // CLUB, BUSINESS\n\n  // Branding\n  brandColor String? @default(\"#000000\")\n  logoUrl    String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  users       User[]\n  contacts    Contact[]\n  tags        Tag[]\n  campaigns   Campaign[]\n  courses     Course[]\n  enrollments Enrollment[]\n  modules     Module[]\n  lessons     Lesson[]\n  emailLogs   EmailLog[]\n}\n\nmodel User {\n  id        String   @id @default(cuid())\n  name      String?\n  email     String\n  password  String? // Optional for OAuth\n  image     String?\n  role      String   @default(\"STUDENT\") // STUDENT, ADMIN\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  enrollments Enrollment[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([tenantId, email])\n}\n\n// CRM & Marketing\nmodel Contact {\n  id        String   @id @default(cuid())\n  email     String\n  firstName String?\n  lastName  String?\n  source    String? // e.g., \"Web\", \"Kartra Import\"\n  status    String   @default(\"ACTIVE\") // ACTIVE, UNSUBSCRIBED\n  tags      Tag[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  emailLogs EmailLog[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([tenantId, email])\n}\n\nmodel Tag {\n  id       String    @id @default(cuid())\n  name     String\n  contacts Contact[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([tenantId, name])\n}\n\nmodel Campaign {\n  id        String    @id @default(cuid())\n  subject   String\n  content   String?\n  status    String    @default(\"DRAFT\") // DRAFT, SCHEDULED, SENT\n  sentAt    DateTime?\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n\n  stats     String? // { sent: 100, open: 50, click: 10 }\n  emailLogs EmailLog[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n}\n\nmodel EmailLog {\n  id         String    @id @default(cuid())\n  campaignId String\n  contactId  String\n  status     String    @default(\"SENT\") // SENT, OPENED, CLICKED, BOUNCED\n  openedAt   DateTime?\n  clickedAt  DateTime?\n  createdAt  DateTime  @default(now())\n\n  campaign Campaign @relation(fields: [campaignId], references: [id])\n  contact  Contact  @relation(fields: [contactId], references: [id])\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@index([campaignId])\n  @@index([contactId])\n}\n\n// LMS (Basic)\nmodel Course {\n  id          String   @id @default(cuid())\n  title       String\n  slug        String\n  description String?\n  image       String?\n  published   Boolean  @default(false)\n  price       Decimal  @default(0)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  modules     Module[]\n  enrollments Enrollment[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([tenantId, slug])\n}\n\nmodel Module {\n  id       String   @id @default(cuid())\n  title    String\n  order    Int      @default(0)\n  courseId String\n  course   Course   @relation(fields: [courseId], references: [id])\n  lessons  Lesson[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n}\n\nmodel Lesson {\n  id       String  @id @default(cuid())\n  title    String\n  slug     String\n  videoUrl String? // YouTube/Vimeo ID or URL\n  content  String?\n  order    Int     @default(0)\n  moduleId String\n  module   Module  @relation(fields: [moduleId], references: [id])\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n}\n\nmodel Enrollment {\n  id        String   @id @default(cuid())\n  userId    String\n  courseId  String\n  createdAt DateTime @default(now())\n\n  user   User   @relation(fields: [userId], references: [id])\n  course Course @relation(fields: [courseId], references: [id])\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([userId, courseId])\n}\n",
-  "inlineSchemaHash": "f1962f7f68e00326dd281b1ad50e0731de65809c22a39757197af67d50168b45",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma-client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"POSTGRES_PRISMA_URL\")\n  directUrl = env(\"POSTGRES_URL_NON_POOLING\")\n}\n\nmodel Tenant {\n  id   String @id @default(cuid())\n  name String\n  slug String @unique\n  type String @default(\"BUSINESS\") // CLUB, BUSINESS\n\n  // Branding\n  brandColor String? @default(\"#000000\")\n  logoUrl    String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  users       User[]\n  contacts    Contact[]\n  tags        Tag[]\n  campaigns   Campaign[]\n  courses     Course[]\n  enrollments Enrollment[]\n  modules     Module[]\n  lessons     Lesson[]\n  emailLogs   EmailLog[]\n}\n\nmodel User {\n  id        String   @id @default(cuid())\n  name      String?\n  email     String\n  password  String? // Optional for OAuth\n  image     String?\n  role      String   @default(\"STUDENT\") // STUDENT, ADMIN\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  enrollments Enrollment[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([tenantId, email])\n}\n\n// CRM & Marketing\nmodel Contact {\n  id        String   @id @default(cuid())\n  email     String\n  firstName String?\n  lastName  String?\n  source    String? // e.g., \"Web\", \"Kartra Import\"\n  status    String   @default(\"ACTIVE\") // ACTIVE, UNSUBSCRIBED\n  tags      Tag[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  emailLogs EmailLog[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([tenantId, email])\n}\n\nmodel Tag {\n  id       String    @id @default(cuid())\n  name     String\n  contacts Contact[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([tenantId, name])\n}\n\nmodel Campaign {\n  id        String    @id @default(cuid())\n  subject   String\n  content   String?\n  status    String    @default(\"DRAFT\") // DRAFT, SCHEDULED, SENT\n  sentAt    DateTime?\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n\n  stats     String? // { sent: 100, open: 50, click: 10 }\n  emailLogs EmailLog[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n}\n\nmodel EmailLog {\n  id         String    @id @default(cuid())\n  campaignId String\n  contactId  String\n  status     String    @default(\"SENT\") // SENT, OPENED, CLICKED, BOUNCED\n  openedAt   DateTime?\n  clickedAt  DateTime?\n  createdAt  DateTime  @default(now())\n\n  campaign Campaign @relation(fields: [campaignId], references: [id])\n  contact  Contact  @relation(fields: [contactId], references: [id])\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@index([campaignId])\n  @@index([contactId])\n}\n\n// LMS (Basic)\nmodel Course {\n  id          String   @id @default(cuid())\n  title       String\n  slug        String\n  description String?\n  image       String?\n  published   Boolean  @default(false)\n  price       Decimal  @default(0)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  modules     Module[]\n  enrollments Enrollment[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([tenantId, slug])\n}\n\nmodel Module {\n  id       String   @id @default(cuid())\n  title    String\n  order    Int      @default(0)\n  courseId String\n  course   Course   @relation(fields: [courseId], references: [id])\n  lessons  Lesson[]\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n}\n\nmodel Lesson {\n  id       String  @id @default(cuid())\n  title    String\n  slug     String\n  videoUrl String? // YouTube/Vimeo ID or URL\n  content  String?\n  order    Int     @default(0)\n  moduleId String\n  module   Module  @relation(fields: [moduleId], references: [id])\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n}\n\nmodel Enrollment {\n  id        String   @id @default(cuid())\n  userId    String\n  courseId  String\n  createdAt DateTime @default(now())\n\n  user   User   @relation(fields: [userId], references: [id])\n  course Course @relation(fields: [courseId], references: [id])\n\n  tenantId String\n  tenant   Tenant @relation(fields: [tenantId], references: [id])\n\n  @@unique([userId, courseId])\n}\n",
+  "inlineSchemaHash": "8a0336a0d2d1d7f56883dea014ee9b004a1ab1b786427822fe97ea36ecc4a998",
   "copyEngine": true
 }
 
@@ -327,14 +323,6 @@ path.join(process.cwd(), "src/generated/prisma-client/query_engine-windows.dll.n
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
 path.join(process.cwd(), "src/generated/prisma-client/libquery_engine-rhel-openssl-3.0.x.so.node")
-
-// file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-rhel-openssl-1.0.x.so.node");
-path.join(process.cwd(), "src/generated/prisma-client/libquery_engine-rhel-openssl-1.0.x.so.node")
-
-// file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-path.join(process.cwd(), "src/generated/prisma-client/libquery_engine-debian-openssl-3.0.x.so.node")
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");

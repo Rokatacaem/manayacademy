@@ -43,6 +43,27 @@ async function main() {
     })
     console.log('Seeded admin:', admin.email)
 
+    const ana = await prisma.user.upsert({
+        where: {
+            tenantId_email: {
+                tenantId: tenant.id,
+                email: 'kathepalla@gmail.com',
+            },
+        },
+        update: {
+            password,
+            role: 'ADMIN',
+        },
+        create: {
+            email: 'kathepalla@gmail.com',
+            name: 'Ana',
+            password,
+            role: 'ADMIN',
+            tenantId: tenant.id,
+        },
+    })
+    console.log('Seeded Ana as ADMIN:', ana.email)
+
     const student = await prisma.user.upsert({
         where: {
             tenantId_email: {

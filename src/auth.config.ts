@@ -22,11 +22,29 @@ export default {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
             const isOnAdmin = nextUrl.pathname.startsWith('/admin');
+            const userRole = (auth?.user as any)?.role;
+
             if (isOnAdmin) {
-                if (isLoggedIn) return true;
-                return false; // Redirect unauthenticated users to login page
+                if (isLoggedIn && userRole === 'ADMIN') return true;
+                return false; // Redirect unauthenticated or non-admin users to login page
             }
             return true;
         },
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.tenantId = (user as any).tenantId;
+                token.role = (user as any).role;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            if (token && session.user) {
+                session.user.id = token.id as string;
+                (session.user as any).tenantId = token.tenantId;
+                (session.user as any).role = token.role;
+            }
+            return session;
+        }
     },
 } satisfies NextAuthConfig

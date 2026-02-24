@@ -13,7 +13,9 @@ export const config = {
 }
 
 export default auth(async function middleware(req) {
-    const { nextUrl } = req
+    const { nextUrl, auth: session } = req
+    const isLoggedIn = !!session
+    const userRole = (session?.user as any)?.role
 
     // Default tenant slug for simple single-tenant operation
     const DEFAULT_SLUG = 'demo'
@@ -22,6 +24,9 @@ export default auth(async function middleware(req) {
     const path = nextUrl.pathname
 
     if (path.startsWith('/admin')) {
+        if (!isLoggedIn || userRole !== 'ADMIN') {
+            return NextResponse.redirect(new URL('/login', req.url))
+        }
         return NextResponse.rewrite(new URL(`/tenant/${DEFAULT_SLUG}${path}`, req.url))
     }
 

@@ -19,9 +19,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
                 if (parsedCredentials.success) {
                     const { email, password, tenantId } = parsedCredentials.data;
+                    const normalizedEmail = email.toLowerCase();
 
                     const user = await prisma.user.findFirst({
-                        where: { email, tenantId },
+                        where: { email: normalizedEmail, tenantId },
                     });
 
                     if (!user) return null;
@@ -36,22 +37,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             },
         }),
     ],
-    callbacks: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.id = user.id;
-                token.tenantId = (user as any).tenantId;
-                token.role = (user as any).role;
-            }
-            return token;
-        },
-        async session({ session, token }) {
-            if (token && session.user) {
-                session.user.id = token.id as string;
-                (session.user as any).tenantId = token.tenantId;
-                (session.user as any).role = token.role;
-            }
-            return session;
-        }
-    }
 })
