@@ -1,22 +1,17 @@
 'use server'
 
-import { prisma } from "@/lib/prisma"
+import { prisma, getTenantPrisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { Resend } from 'resend'
 import { buildEmailTemplate } from "@/lib/emailTemplate"
 
-// Initialize Resend lazily to avoid module-load crash when API key is missing
 function getResend() {
     const key = process.env.RESEND_API_KEY
     if (!key) throw new Error('RESEND_API_KEY is not configured. Go to resend.com to get your key and add it to .env')
     return new Resend(key)
 }
 
-/**
- * Sends a test email of a campaign draft to one or more specific email addresses.
- * Does NOT change the campaign status. Safe to call multiple times.
- */
 export async function sendTestEmail(tenantId: string, campaignId: string, formData: FormData) {
     const testEmails = (formData.get('testEmails') as string ?? '').split(',').map(e => e.trim()).filter(Boolean)
 
@@ -24,8 +19,9 @@ export async function sendTestEmail(tenantId: string, campaignId: string, formDa
         return { error: 'Por favor ingresa al menos un correo de prueba.' }
     }
 
-    const campaign = await prisma.campaign.findUnique({ where: { id: campaignId } })
-    if (!campaign || campaign.tenantId !== tenantId) return { error: 'Campaña no encontrada.' }
+    const db = getTenantPrisma(tenantId)
+    const campaign = await db.campaign.findUnique({ where: { id: campaignId } })
+    if (!campaign) return { error: 'Campaña no encontrada.' }
 
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
 
@@ -47,14 +43,14 @@ export async function createCampaign(tenantId: string, formData: FormData) {
     const subject = formData.get('subject') as string
     const content = formData.get('content') as string
 
-    if (!subject) {
-        throw new Error('Subject is required')
-    }
+    if (!subject) throw new Error('Subject is required')
+
+    const db = getTenantPrisma(tenantId)
 
     try {
-        await prisma.campaign.create({
+        await db.campaign.create({
             data: {
-                tenantId,
+                tenantId, // Keeping it for TS compatibility
                 subject,
                 content,
                 status: 'DRAFT'
@@ -75,13 +71,10 @@ export async function updateCampaign(tenantId: string, id: string, formData: For
     const subject = formData.get('subject') as string
     const content = formData.get('content') as string
 
-    try {
-        const existing = await prisma.campaign.findUnique({ where: { id } })
-        if (!existing || existing.tenantId !== tenantId) {
-            return { error: 'Access denied' }
-        }
+    const db = getTenantPrisma(tenantId)
 
-        await prisma.campaign.update({
+    try {
+        await db.campaign.update({
             where: { id },
             data: {
                 subject,
@@ -101,17 +94,14 @@ export async function updateCampaign(tenantId: string, id: string, formData: For
 export async function deleteCampaign(tenantId: string, id: string, formData?: FormData) {
     if (!id) return
 
-    try {
-        const existing = await prisma.campaign.findUnique({ where: { id } })
-        if (!existing || existing.tenantId !== tenantId) {
-            return { error: 'Access denied' }
-        }
+    const db = getTenantPrisma(tenantId)
 
-        await prisma.emailLog.deleteMany({
+    try {
+        await db.emailLog.deleteMany({
             where: { campaignId: id }
         })
 
-        await prisma.campaign.delete({
+        await db.campaign.delete({
             where: { id }
         })
     } catch (error) {
@@ -126,28 +116,23 @@ export async function deleteCampaign(tenantId: string, id: string, formData?: Fo
 export async function sendCampaign(tenantId: string, campaignId: string, formData: FormData) {
     if (!campaignId) return { error: 'Campaign ID required' }
 
-    const targetType = formData.get('targetType') as string // 'all' or 'tags'
+    const targetType = formData.get('targetType') as string
     const tagIds = formData.getAll('tags') as string[]
 
-    // 1. Fetch Campaign & Verify Tenant
-    const campaign = await prisma.campaign.findUnique({
+    const db = getTenantPrisma(tenantId)
+
+    const campaign = await db.campaign.findUnique({
         where: { id: campaignId }
     })
 
     if (!campaign) return { error: 'Campaign not found' }
-    if (campaign.tenantId !== tenantId) return { error: 'Access denied' }
     if (campaign.status === 'SENT') return { error: 'Campaign already sent' }
 
-    // 2. Fetch Contacts Scoped by Tenant
-    // Define a type for contacts to avoid any[] implicit type errors if needed, or let Prisma infer
-    // But specific strict checking might need explicit type if complex
-
-    let contacts: any[] = [] // Explicit any[] to bypass inference issues for now or better type it
+    let contacts: any[] = []
 
     if (targetType === 'tags' && tagIds.length > 0) {
-        contacts = await prisma.contact.findMany({
+        contacts = await db.contact.findMany({
             where: {
-                tenantId, // STRICT TENANT FILTER
                 status: 'ACTIVE',
                 tags: {
                     some: {
@@ -156,17 +141,10 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
                 }
             }
         })
-    } else {
-        if (targetType === 'all') {
-            contacts = await prisma.contact.findMany({
-                where: {
-                    tenantId, // STRICT TENANT FILTER
-                    status: 'ACTIVE'
-                }
-            })
-        } else {
-            contacts = []
-        }
+    } else if (targetType === 'all') {
+        contacts = await db.contact.findMany({
+            where: { status: 'ACTIVE' }
+        })
     }
 
     if (contacts.length === 0) {
@@ -189,7 +167,7 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
             if (error) {
                 console.error(`Resend Error for ${contact.email}:`, error)
                 errorCount++
-                await prisma.emailLog.create({
+                await db.emailLog.create({
                     data: {
                         tenantId,
                         campaignId,
@@ -199,7 +177,7 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
                 })
             } else {
                 sentCount++
-                await prisma.emailLog.create({
+                await db.emailLog.create({
                     data: {
                         tenantId,
                         campaignId,
@@ -215,8 +193,7 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
         }
     }
 
-    // 4. Update Campaign Status
-    await prisma.campaign.update({
+    await db.campaign.update({
         where: { id: campaignId },
         data: {
             status: 'SENT',

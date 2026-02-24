@@ -1,6 +1,6 @@
 'use server'
 
-import { prisma } from "@/lib/prisma"
+import { prisma, getTenantPrisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
@@ -14,11 +14,11 @@ export async function createContact(tenantId: string, formData: FormData) {
         throw new Error('Email is required')
     }
 
-    // Handle Tags (comma separated)
+    const db = getTenantPrisma(tenantId)
     const tagNames = tagsInput.split(',').map(t => t.trim()).filter(Boolean)
 
     try {
-        await prisma.contact.create({
+        await db.contact.create({
             data: {
                 tenantId,
                 email,
@@ -35,7 +35,6 @@ export async function createContact(tenantId: string, formData: FormData) {
         })
     } catch (error) {
         console.error('Failed to create contact:', error)
-        // Handle duplicate email error
         return { error: 'Failed to create contact. Email might already exist.' }
     }
 
@@ -56,19 +55,21 @@ export async function updateContact(tenantId: string, id: string, formData: Form
         return { error: 'Email is required' }
     }
 
+    const db = getTenantPrisma(tenantId)
     const tagNames = tagsInput.split(',').map(t => t.trim()).filter(Boolean)
 
     try {
-        // Verify ownership
-        const existing = await prisma.contact.findUnique({
+        // Ownership check is still good as a double layer, 
+        // but now 'findUnique' will implicitly filter by tenantId too via the extension!
+        const existing = await db.contact.findUnique({
             where: { id }
         })
-        if (!existing || existing.tenantId !== tenantId) {
-            return { error: 'Contact not found or access denied relative to tenant.' }
+
+        if (!existing) {
+            return { error: 'Contact not found or access denied.' }
         }
 
-        // First disconnect all tags, then connect/create the new ones
-        await prisma.contact.update({
+        await db.contact.update({
             where: { id },
             data: {
                 email,
@@ -76,7 +77,7 @@ export async function updateContact(tenantId: string, id: string, formData: Form
                 lastName,
                 status,
                 tags: {
-                    set: [], // Disconnect all existing tags
+                    set: [],
                     connectOrCreate: tagNames.map(name => ({
                         where: { tenantId_name: { name, tenantId } },
                         create: { name, tenantId }
@@ -97,15 +98,10 @@ export async function updateContact(tenantId: string, id: string, formData: Form
 export async function deleteContact(tenantId: string, id: string) {
     if (!id) return
 
-    try {
-        const existing = await prisma.contact.findUnique({
-            where: { id }
-        })
-        if (!existing || existing.tenantId !== tenantId) {
-            return { error: 'Access denied.' }
-        }
+    const db = getTenantPrisma(tenantId)
 
-        await prisma.contact.delete({
+    try {
+        await db.contact.delete({
             where: { id }
         })
     } catch (error) {

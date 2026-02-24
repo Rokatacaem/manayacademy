@@ -1,18 +1,21 @@
 import { auth } from "@/auth";
-import { prisma } from "@/lib/prisma";
+import { prisma, getTenantPrisma } from "@/lib/prisma";
 import Link from "next/link";
 
 export default async function AdminDashboard() {
     const session = await auth();
     const tenantId = (session?.user as any)?.tenantId;
 
+    if (!tenantId) return <div>No tenant session found</div>;
+
+    const db = getTenantPrisma(tenantId);
+
     const [contactCount, courseCount] = await Promise.all([
-        prisma.contact.count({ where: { tenantId } }),
-        prisma.course.count({ where: { tenantId } }),
+        db.contact.count(),
+        db.course.count(),
     ]);
 
-    const recentContacts = await prisma.contact.findMany({
-        where: { tenantId },
+    const recentContacts = await db.contact.findMany({
         orderBy: { createdAt: 'desc' },
         take: 5,
         select: { id: true, firstName: true, lastName: true, email: true, createdAt: true },
