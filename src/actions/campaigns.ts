@@ -26,16 +26,22 @@ export async function sendTestEmail(tenantId: string, campaignId: string, formDa
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
 
     try {
-        await getResend().emails.send({
+        const { data, error } = await getResend().emails.send({
             from: fromEmail,
             to: testEmails,
             subject: `[PRUEBA] ${campaign.subject}`,
             html: buildEmailTemplate(campaign.content || '<p>Sin contenido</p>', campaign.subject),
         })
-        return { success: `✅ Email de prueba enviado a: ${testEmails.join(', ')}` }
+
+        if (error) {
+            console.error('sendTestEmail Resend error:', error)
+            return { error: `Error de Resend: ${error.name} - ${error.message}` }
+        }
+
+        return { success: `✅ Email de prueba enviado a: ${testEmails.join(', ')} (ID: ${data?.id})` }
     } catch (err: any) {
-        console.error('sendTestEmail error:', err)
-        return { error: `Error al enviar: ${err?.message ?? 'desconocido'}` }
+        console.error('sendTestEmail unexpected error:', err)
+        return { error: `Error inesperado: ${err?.message ?? 'desconocido'}` }
     }
 }
 
@@ -157,7 +163,7 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
 
     for (const contact of contacts) {
         try {
-            const { error } = await getResend().emails.send({
+            const { data, error } = await getResend().emails.send({
                 from: fromEmail,
                 to: contact.email,
                 subject: campaign.subject,
@@ -187,9 +193,17 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
                 })
             }
 
-        } catch (e) {
+        } catch (e: any) {
             console.error(`Unexpected Error for ${contact.email}:`, e)
             errorCount++
+            await db.emailLog.create({
+                data: {
+                    tenantId,
+                    campaignId,
+                    contactId: contact.id,
+                    status: 'BOUNCED',
+                }
+            })
         }
     }
 
