@@ -17,6 +17,9 @@ export default auth(async function middleware(req) {
     const isLoggedIn = !!session
     const userRole = (session?.user as any)?.role
 
+    // Default tenant slug for simple single-tenant operation
+    const DEFAULT_SLUG = 'demo'
+
     const path = nextUrl.pathname
 
     // Protect ANY path that contains /admin
