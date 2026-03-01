@@ -276,3 +276,35 @@ export async function getCampaignHourlyStats(tenantId: string, campaignId: strin
         }))
 }
 
+export async function duplicateCampaign(tenantId: string, id: string, formData?: FormData) {
+    if (!id) return
+
+    const db = getTenantPrisma(tenantId)
+
+    const campaign = await db.campaign.findUnique({
+        where: { id }
+    })
+
+    if (!campaign) return { error: 'Campaign not found' }
+
+    let newCampaignId = ''
+    try {
+        const newCampaign = await db.campaign.create({
+            data: {
+                tenantId,
+                subject: `${campaign.subject} (Copia)`,
+                content: campaign.content,
+                status: 'DRAFT'
+            }
+        })
+        newCampaignId = newCampaign.id
+    } catch (error) {
+        console.error('Failed to duplicate campaign:', error)
+        return { error: 'Failed to duplicate campaign.' }
+    }
+
+    revalidatePath('/admin/campaigns')
+    redirect(`/admin/campaigns/${newCampaignId}`)
+}
+
+

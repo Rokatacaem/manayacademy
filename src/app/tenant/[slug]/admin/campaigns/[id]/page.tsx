@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { updateCampaign, deleteCampaign, sendCampaign } from '@/actions/campaigns';
+import { updateCampaign, deleteCampaign, sendCampaign, duplicateCampaign } from '@/actions/campaigns';
 import { notFound } from 'next/navigation';
 import TestEmailPanel from '@/components/TestEmailPanel';
 import RichEditor from '@/components/RichEditor';
@@ -32,10 +32,12 @@ export default async function CampaignIdPage({ params }: { params: Promise<{ slu
     const updateCampaignAction = updateCampaign.bind(null, tenant.id, campaign.id);
     const deleteCampaignAction = deleteCampaign.bind(null, tenant.id, campaign.id);
     const sendCampaignAction = sendCampaign.bind(null, tenant.id, campaign.id);
+    const duplicateCampaignAction = duplicateCampaign.bind(null, tenant.id, campaign.id);
 
     const onUpdate = async (formData: FormData) => { 'use server'; await updateCampaignAction(formData); }
     const onDelete = async (formData: FormData) => { 'use server'; await deleteCampaignAction(formData); }
     const onSend = async (formData: FormData) => { 'use server'; await sendCampaignAction(formData); }
+    const onDuplicate = async () => { 'use server'; await duplicateCampaignAction(); }
 
     const statusColor = isSent ? '#166534' : '#92400e'
     const statusBg = isSent ? '#f0fdf4' : '#fffbeb'
@@ -170,6 +172,13 @@ export default async function CampaignIdPage({ params }: { params: Promise<{ slu
                             </div>
                         </div>
                     )}
+
+                    {/* Duplicate */}
+                    <form action={onDuplicate}>
+                        <button type="submit" style={{ width: '100%', padding: '12px', background: 'white', border: '1px solid #e2e8f0', color: '#64748b', borderRadius: '12px', cursor: 'pointer', fontWeight: '600', fontSize: '0.75rem', marginBottom: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
+                            📄 Duplicar campaña
+                        </button>
+                    </form>
 
                     {/* Delete */}
                     <form action={onDelete}>
