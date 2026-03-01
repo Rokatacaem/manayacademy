@@ -161,49 +161,65 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
     let errorCount = 0
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
 
-    for (const contact of contacts) {
+    // Use Resend Batch API for better performance and tracking
+    const batchSize = 100
+    for (let i = 0; i < contacts.length; i += batchSize) {
+        const batch = contacts.slice(i, i + batchSize)
+
         try {
-            const { data, error } = await getResend().emails.send({
+            const batchRequest = batch.map(contact => ({
                 from: fromEmail,
                 to: contact.email,
                 subject: campaign.subject,
-                html: campaign.content || '',
-            })
+                html: buildEmailTemplate(campaign.content || '<p>Sin contenido</p>', campaign.subject),
+            }))
+
+            const { data, error } = await getResend().batch.send(batchRequest)
 
             if (error) {
-                console.error(`Resend Error for ${contact.email}:`, error)
-                errorCount++
-                await db.emailLog.create({
-                    data: {
-                        tenantId,
-                        campaignId,
-                        contactId: contact.id,
-                        status: 'BOUNCED',
-                    }
-                })
-            } else {
-                sentCount++
-                await db.emailLog.create({
-                    data: {
-                        tenantId,
-                        campaignId,
-                        contactId: contact.id,
-                        status: 'SENT',
-                    }
-                })
-            }
-
-        } catch (e: any) {
-            console.error(`Unexpected Error for ${contact.email}:`, e)
-            errorCount++
-            await db.emailLog.create({
-                data: {
+                console.error(`Resend Batch Error:`, error)
+                errorCount += batch.length
+                // Log all as failed in this batch
+                const logData = batch.map(contact => ({
                     tenantId,
                     campaignId,
                     contactId: contact.id,
                     status: 'BOUNCED',
+                }))
+                await db.emailLog.createMany({ data: logData })
+            } else if (data && data.data) {
+                // Success - map Resend IDs back to our contacts
+                for (let j = 0; j < batch.length; j++) {
+                    const resendItem = data.data[j]
+                    const contact = batch[j]
+
+                    if (resendItem.id) {
+                        sentCount++
+                        await db.emailLog.create({
+                            data: {
+                                tenantId,
+                                campaignId,
+                                contactId: contact.id,
+                                status: 'SENT',
+                                externalId: resendItem.id
+                            }
+                        })
+                    } else {
+                        errorCount++
+                        await db.emailLog.create({
+                            data: {
+                                tenantId,
+                                campaignId,
+                                contactId: contact.id,
+                                status: 'BOUNCED',
+                            }
+                        })
+                    }
                 }
-            })
+            }
+        } catch (e: any) {
+            console.error(`Unexpected Batch Error:`, e)
+            errorCount += batch.length
         }
     }
 
@@ -224,3 +240,39 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
     revalidatePath('/admin/campaigns')
     redirect(`/admin/campaigns/${campaignId}`)
 }
+
+export async function getCampaignHourlyStats(tenantId: string, campaignId: string) {
+    const db = getTenantPrisma(tenantId)
+    const logs = await db.emailLog.findMany({
+        where: { campaignId },
+        select: {
+            status: true,
+            createdAt: true,
+            openedAt: true,
+            clickedAt: true
+        }
+    })
+
+    // Group by hour
+    const hourlyStats = logs.reduce((acc: any, log) => {
+        const hour = log.createdAt.toISOString().substring(0, 13) + ':00' // YYYY-MM-DDTHH:00
+        if (!acc[hour]) {
+            acc[hour] = { sent: 0, opened: 0, clicked: 0, bounced: 0 }
+        }
+
+        if (log.status === 'SENT' || log.status === 'OPENED' || log.status === 'CLICKED') acc[hour].sent++
+        if (log.status === 'BOUNCED') acc[hour].bounced++
+        if (log.openedAt) acc[hour].opened++
+        if (log.clickedAt) acc[hour].clicked++
+
+        return acc
+    }, {})
+
+    return Object.entries(hourlyStats)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([hour, stats]) => ({
+            hour,
+            ...(stats as any)
+        }))
+}
+

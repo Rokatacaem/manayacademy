@@ -20,7 +20,14 @@ export default async function CampaignIdPage({ params }: { params: Promise<{ slu
     });
 
     const isSent = campaign.status === 'SENT';
-    const stats = campaign.stats as { sent?: number, errors?: number, total?: number } | null;
+    let stats: { sent?: number, errors?: number, total?: number } | null = null;
+    if (campaign.stats) {
+        try {
+            stats = typeof campaign.stats === 'string' ? JSON.parse(campaign.stats) : campaign.stats;
+        } catch (e) {
+            console.error('Error parsing campaign stats:', e);
+        }
+    }
 
     const updateCampaignAction = updateCampaign.bind(null, tenant.id, campaign.id);
     const deleteCampaignAction = deleteCampaign.bind(null, tenant.id, campaign.id);

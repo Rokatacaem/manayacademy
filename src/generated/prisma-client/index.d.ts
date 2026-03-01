@@ -7096,6 +7096,7 @@ export namespace Prisma {
     status: string | null
     openedAt: Date | null
     clickedAt: Date | null
+    externalId: string | null
     createdAt: Date | null
     tenantId: string | null
   }
@@ -7107,6 +7108,7 @@ export namespace Prisma {
     status: string | null
     openedAt: Date | null
     clickedAt: Date | null
+    externalId: string | null
     createdAt: Date | null
     tenantId: string | null
   }
@@ -7118,6 +7120,7 @@ export namespace Prisma {
     status: number
     openedAt: number
     clickedAt: number
+    externalId: number
     createdAt: number
     tenantId: number
     _all: number
@@ -7131,6 +7134,7 @@ export namespace Prisma {
     status?: true
     openedAt?: true
     clickedAt?: true
+    externalId?: true
     createdAt?: true
     tenantId?: true
   }
@@ -7142,6 +7146,7 @@ export namespace Prisma {
     status?: true
     openedAt?: true
     clickedAt?: true
+    externalId?: true
     createdAt?: true
     tenantId?: true
   }
@@ -7153,6 +7158,7 @@ export namespace Prisma {
     status?: true
     openedAt?: true
     clickedAt?: true
+    externalId?: true
     createdAt?: true
     tenantId?: true
     _all?: true
@@ -7237,6 +7243,7 @@ export namespace Prisma {
     status: string
     openedAt: Date | null
     clickedAt: Date | null
+    externalId: string | null
     createdAt: Date
     tenantId: string
     _count: EmailLogCountAggregateOutputType | null
@@ -7265,6 +7272,7 @@ export namespace Prisma {
     status?: boolean
     openedAt?: boolean
     clickedAt?: boolean
+    externalId?: boolean
     createdAt?: boolean
     tenantId?: boolean
     campaign?: boolean | CampaignDefaultArgs<ExtArgs>
@@ -7279,6 +7287,7 @@ export namespace Prisma {
     status?: boolean
     openedAt?: boolean
     clickedAt?: boolean
+    externalId?: boolean
     createdAt?: boolean
     tenantId?: boolean
     campaign?: boolean | CampaignDefaultArgs<ExtArgs>
@@ -7293,6 +7302,7 @@ export namespace Prisma {
     status?: boolean
     openedAt?: boolean
     clickedAt?: boolean
+    externalId?: boolean
     createdAt?: boolean
     tenantId?: boolean
   }
@@ -7322,6 +7332,7 @@ export namespace Prisma {
       status: string
       openedAt: Date | null
       clickedAt: Date | null
+      externalId: string | null
       createdAt: Date
       tenantId: string
     }, ExtArgs["result"]["emailLog"]>
@@ -7726,6 +7737,7 @@ export namespace Prisma {
     readonly status: FieldRef<"EmailLog", 'String'>
     readonly openedAt: FieldRef<"EmailLog", 'DateTime'>
     readonly clickedAt: FieldRef<"EmailLog", 'DateTime'>
+    readonly externalId: FieldRef<"EmailLog", 'String'>
     readonly createdAt: FieldRef<"EmailLog", 'DateTime'>
     readonly tenantId: FieldRef<"EmailLog", 'String'>
   }
@@ -12179,6 +12191,7 @@ export namespace Prisma {
     status: 'status',
     openedAt: 'openedAt',
     clickedAt: 'clickedAt',
+    externalId: 'externalId',
     createdAt: 'createdAt',
     tenantId: 'tenantId'
   };
@@ -12739,6 +12752,7 @@ export namespace Prisma {
     status?: StringFilter<"EmailLog"> | string
     openedAt?: DateTimeNullableFilter<"EmailLog"> | Date | string | null
     clickedAt?: DateTimeNullableFilter<"EmailLog"> | Date | string | null
+    externalId?: StringNullableFilter<"EmailLog"> | string | null
     createdAt?: DateTimeFilter<"EmailLog"> | Date | string
     tenantId?: StringFilter<"EmailLog"> | string
     campaign?: XOR<CampaignRelationFilter, CampaignWhereInput>
@@ -12753,6 +12767,7 @@ export namespace Prisma {
     status?: SortOrder
     openedAt?: SortOrderInput | SortOrder
     clickedAt?: SortOrderInput | SortOrder
+    externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
     campaign?: CampaignOrderByWithRelationInput
@@ -12770,6 +12785,7 @@ export namespace Prisma {
     status?: StringFilter<"EmailLog"> | string
     openedAt?: DateTimeNullableFilter<"EmailLog"> | Date | string | null
     clickedAt?: DateTimeNullableFilter<"EmailLog"> | Date | string | null
+    externalId?: StringNullableFilter<"EmailLog"> | string | null
     createdAt?: DateTimeFilter<"EmailLog"> | Date | string
     tenantId?: StringFilter<"EmailLog"> | string
     campaign?: XOR<CampaignRelationFilter, CampaignWhereInput>
@@ -12784,6 +12800,7 @@ export namespace Prisma {
     status?: SortOrder
     openedAt?: SortOrderInput | SortOrder
     clickedAt?: SortOrderInput | SortOrder
+    externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
     _count?: EmailLogCountOrderByAggregateInput
@@ -12801,6 +12818,7 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter<"EmailLog"> | string
     openedAt?: DateTimeNullableWithAggregatesFilter<"EmailLog"> | Date | string | null
     clickedAt?: DateTimeNullableWithAggregatesFilter<"EmailLog"> | Date | string | null
+    externalId?: StringNullableWithAggregatesFilter<"EmailLog"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"EmailLog"> | Date | string
     tenantId?: StringWithAggregatesFilter<"EmailLog"> | string
   }
@@ -13522,6 +13540,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     campaign: CampaignCreateNestedOneWithoutEmailLogsInput
     contact: ContactCreateNestedOneWithoutEmailLogsInput
@@ -13535,6 +13554,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     tenantId: string
   }
@@ -13544,6 +13564,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     campaign?: CampaignUpdateOneRequiredWithoutEmailLogsNestedInput
     contact?: ContactUpdateOneRequiredWithoutEmailLogsNestedInput
@@ -13557,6 +13578,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
   }
@@ -13568,6 +13590,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     tenantId: string
   }
@@ -13577,6 +13600,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13587,6 +13611,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
   }
@@ -14282,6 +14307,7 @@ export namespace Prisma {
     status?: SortOrder
     openedAt?: SortOrder
     clickedAt?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
   }
@@ -14293,6 +14319,7 @@ export namespace Prisma {
     status?: SortOrder
     openedAt?: SortOrder
     clickedAt?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
   }
@@ -14304,6 +14331,7 @@ export namespace Prisma {
     status?: SortOrder
     openedAt?: SortOrder
     clickedAt?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
   }
@@ -15946,6 +15974,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     campaign: CampaignCreateNestedOneWithoutEmailLogsInput
     contact: ContactCreateNestedOneWithoutEmailLogsInput
@@ -15958,6 +15987,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
   }
 
@@ -16231,6 +16261,7 @@ export namespace Prisma {
     status?: StringFilter<"EmailLog"> | string
     openedAt?: DateTimeNullableFilter<"EmailLog"> | Date | string | null
     clickedAt?: DateTimeNullableFilter<"EmailLog"> | Date | string | null
+    externalId?: StringNullableFilter<"EmailLog"> | string | null
     createdAt?: DateTimeFilter<"EmailLog"> | Date | string
     tenantId?: StringFilter<"EmailLog"> | string
   }
@@ -16389,6 +16420,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     campaign: CampaignCreateNestedOneWithoutEmailLogsInput
     tenant: TenantCreateNestedOneWithoutEmailLogsInput
@@ -16400,6 +16432,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     tenantId: string
   }
@@ -16682,6 +16715,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     contact: ContactCreateNestedOneWithoutEmailLogsInput
     tenant: TenantCreateNestedOneWithoutEmailLogsInput
@@ -16693,6 +16727,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     tenantId: string
   }
@@ -17872,6 +17907,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
   }
 
@@ -18118,6 +18154,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     campaign?: CampaignUpdateOneRequiredWithoutEmailLogsNestedInput
     contact?: ContactUpdateOneRequiredWithoutEmailLogsNestedInput
@@ -18130,6 +18167,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18140,6 +18178,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18177,6 +18216,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     tenantId: string
   }
@@ -18204,6 +18244,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     campaign?: CampaignUpdateOneRequiredWithoutEmailLogsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutEmailLogsNestedInput
@@ -18215,6 +18256,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
   }
@@ -18225,6 +18267,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
   }
@@ -18273,6 +18316,7 @@ export namespace Prisma {
     status?: string
     openedAt?: Date | string | null
     clickedAt?: Date | string | null
+    externalId?: string | null
     createdAt?: Date | string
     tenantId: string
   }
@@ -18282,6 +18326,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneRequiredWithoutEmailLogsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutEmailLogsNestedInput
@@ -18293,6 +18338,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
   }
@@ -18303,6 +18349,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     openedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
   }

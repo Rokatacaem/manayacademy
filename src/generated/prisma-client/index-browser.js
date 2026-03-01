@@ -182,6 +182,7 @@ exports.Prisma.EmailLogScalarFieldEnum = {
   status: 'status',
   openedAt: 'openedAt',
   clickedAt: 'clickedAt',
+  externalId: 'externalId',
   createdAt: 'createdAt',
   tenantId: 'tenantId'
 };

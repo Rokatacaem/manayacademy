@@ -39,8 +39,13 @@ export default async function CampaignsPage() {
                     </thead>
                     <tbody className="bg-white dark:bg-zinc-950 divide-y divide-gray-200 dark:divide-zinc-800">
                         {campaigns.map((campaign) => {
-                            // Helper type for stats
-                            const stats = campaign.stats as { sent?: number, errors?: number } | null
+                            // Parse stats from JSON string
+                            let stats: { sent?: number, errors?: number } | null = null;
+                            if (campaign.stats) {
+                                try {
+                                    stats = typeof campaign.stats === 'string' ? JSON.parse(campaign.stats) : campaign.stats;
+                                } catch { }
+                            }
 
                             return (
                                 <tr key={campaign.id}>
