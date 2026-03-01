@@ -187,13 +187,13 @@ export async function sendCampaign(tenantId: string, campaignId: string, formDat
                     status: 'BOUNCED',
                 }))
                 await db.emailLog.createMany({ data: logData })
-            } else if (data && data.data) {
+            } else if (data && Array.isArray(data.data)) {
                 // Success - map Resend IDs back to our contacts
                 for (let j = 0; j < batch.length; j++) {
                     const resendItem = data.data[j]
                     const contact = batch[j]
 
-                    if (resendItem.id) {
+                    if (resendItem?.id) {
                         sentCount++
                         await db.emailLog.create({
                             data: {
